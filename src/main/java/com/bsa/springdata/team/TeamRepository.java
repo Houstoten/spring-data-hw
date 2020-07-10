@@ -16,9 +16,9 @@ public interface TeamRepository extends JpaRepository<Team, UUID> {
     @Transactional
     @Modifying
     @Query("update Team t set t.technology = " +
-            "(select tech from Technology tech where tech.name like :newTechnologyName) " +
+            "(select tech from Technology tech where tech.name = :newTechnologyName) " +
             "where t.users.size < :devsNumber " +
-            "and t in (select t1 from Team t1 where t1.technology.name like :oldTechnologyName)")
+            "and t in (select t1 from Team t1 where t1.technology.name = :oldTechnologyName)")
     void updateTechnology(int devsNumber, String oldTechnologyName, String newTechnologyName);
 
     @Transactional
@@ -26,6 +26,6 @@ public interface TeamRepository extends JpaRepository<Team, UUID> {
     @Query(value = "update teams set name = concat_ws('_', name, " +
             "(select name from projects where id = teams.project_id), " +
             "(select name from technologies where id = teams.technology_id)) " +
-            "where name like :hipsters", nativeQuery = true)
+            "where name = :hipsters", nativeQuery = true)
     void normalizeName(String hipsters);
 }
