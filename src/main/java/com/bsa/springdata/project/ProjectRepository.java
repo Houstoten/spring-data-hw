@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface ProjectRepository extends JpaRepository<Project, UUID> {
 
-    @Query("select p from Project p where p in (select t.project from Team t where t.technology.name like ?1)")
+    @Query("select p from Project p where p in (select t.project from Team t where t.technology.name = ?1)")
     List<Project> findTop5ByTechnology(String technology, PageRequest of);
 
     @Query("select p from Project p left join p.teams t group by p " +
