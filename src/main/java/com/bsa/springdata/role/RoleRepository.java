@@ -11,7 +11,7 @@ public interface RoleRepository extends JpaRepository<Role, UUID> {
 
     @Transactional
     @Modifying
-    @Query(value = "delete from roles r where r.id not in (select u2r.role_id from user2role u2r)", nativeQuery = true)
-//    @Query("delete from Role r where r not in (select u.roles from User u)")// Не хочет работать и я не знаю почему }:^(
+   // @Query(value = "delete from roles r where r.id not in (select u2r.role_id from user2role u2r)", nativeQuery = true)
+    @Query("delete from Role r where r.users is empty and r.code = :roleCode")
     void deleteRole(String roleCode);
 }

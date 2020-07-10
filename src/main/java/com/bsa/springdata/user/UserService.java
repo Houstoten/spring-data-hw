@@ -71,7 +71,7 @@ public class UserService {
 
     public List<UserDto> findByCity(String city) {
         return userRepository
-                .findByCity(city)
+                .findByOfficeCityOrderByLastNameAsc(city)
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
@@ -88,7 +88,7 @@ public class UserService {
     public List<UserDto> findByRoomAndCity(String city, String room) {
         // TODO: Use a single query. Use class Sort to sort users by last name.
         return userRepository
-                .findByRoomAndCity(city, room
+                .findByOfficeCityAndTeamRoom(city, room
                         , Sort.sort(User.class)
                                 .by(User::getLastName)
                                 .ascending())

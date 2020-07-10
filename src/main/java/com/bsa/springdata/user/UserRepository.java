@@ -14,15 +14,14 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> findByLastNameStartsWithIgnoreCaseOrderByLastNameAsc(String lastName, Pageable pageable);
 
-    @Query("select u from User u where u.office in (select o from Office o where o.city= :city) order by u.lastName asc")
-    List<User> findByCity(String city);
+   // @Query("select u from User u where u.office in (select o from Office o where o.city= :city) order by u.lastName asc")
+    List<User> findByOfficeCityOrderByLastNameAsc(String city);
 
     List<User> findByExperienceGreaterThanEqualOrderByExperienceDesc(int experience);
 
-    @Query("select u from User u where u.office in (select o from Office o where o.city= :city)" +
-            "and u.team in(select t from Team t where t.room= :room)")
-    List<User> findByRoomAndCity(String city, String room, Sort ascending);
+//    @Query("select u from User u where u.office in (select o from Office o where o.city= :city)" +
+//            "and u.team in(select t from Team t where t.room= :room)")
+    List<User> findByOfficeCityAndTeamRoom(String city, String room, Sort ascending);
 
-    @Modifying
     int deleteByExperienceLessThan(int experience);
 }
