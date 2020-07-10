@@ -37,14 +37,16 @@ public class Team {
     @Column
     private String area;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "projectId")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
+            , fetch = FetchType.LAZY)
+    @JoinColumn(name = "projectId", nullable = false)
     private Project project;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     private List<User> users;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "technologyId")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
+            , fetch = FetchType.LAZY)
+    @JoinColumn(name = "technologyId", nullable = false)
     private Technology technology;
 }

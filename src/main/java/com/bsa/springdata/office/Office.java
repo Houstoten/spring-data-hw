@@ -33,6 +33,8 @@ public class Office {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "office"
+            , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
+            , fetch = FetchType.LAZY)
     private List<User> users;
 }
