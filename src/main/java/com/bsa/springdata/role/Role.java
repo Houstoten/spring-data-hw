@@ -33,7 +33,8 @@ public class Role {
     @Column
     private String code;
 
-    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToMany(mappedBy = "roles"
+            , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @Builder.Default
     private Set<User> users = new HashSet<>();
 }

@@ -33,6 +33,8 @@ public class Project {
     @Column
     private String description;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "project"
+            , cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}
+            , fetch = FetchType.LAZY)
     private List<Team> teams;
 }
